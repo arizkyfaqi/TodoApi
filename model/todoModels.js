@@ -9,5 +9,5 @@ let TodoSchema = Schema ({
     done: {type:Boolean}
 })
 
-//export
+//export module
 module.exports = mongoose.model("Todos", TodoSchema)
