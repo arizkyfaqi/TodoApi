@@ -15,4 +15,40 @@ exports.create = function(req, res){
         }
         res.send("Sukses dibikin")
     })
-};
+}
+
+exports.todoShow = function(req, res){
+    Todos.find({}, function(err, todos){
+        if(err){
+            return next(err)
+        }
+        res.send(todos)
+    })
+}
+
+exports.todoDetails = function(req, res){
+    Todos.findById(req.params.id, function(err, todos){
+        if(err){
+            return next(err)
+        }
+        res.send(todos)
+    })
+}
+
+exports.todoUpdate = function(req, res){
+    Todos.findByIdAndUpdate(req.params.id, {$set: req.body}, function(err){
+        if(err){
+            return next(err)
+        }
+        res.send("Update berhasil!")
+    })
+}
+
+exports.todoDelete = function(req, res){
+    Todos.findByIdAndDelete(req.params.id, function(err){
+        if(err){
+            return next(err)
+        }
+        res.send("Delete berhasil!")
+    })
+}
