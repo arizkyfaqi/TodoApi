@@ -5,10 +5,14 @@ exports.test =function(req, res){
 }
 
 exports.create = function(req, res){
+    //inisialisasi todos diabil dari Todos ("../model/todoModels")
     let todos = new Todos({
+        //value name diabli dari value yg di dapat dari body
         name: req.body.name,
+        //field done di set false
         done: false
     });
+    //save data todo
     todos.save(function(err){
         if(err){
             return next(err)
@@ -18,15 +22,18 @@ exports.create = function(req, res){
 }
 
 exports.todoShow = function(req, res){
+    //find berfungsi untuk menemukan data
     Todos.find({}, function(err, todos){
         if(err){
             return next(err)
         }
+        //menampilkan data todos
         res.send(todos)
     })
 }
 
 exports.todoDetails = function(req, res){
+    // menampikan detail data sesuai id parameter
     Todos.findById(req.params.id, function(err, todos){
         if(err){
             return next(err)
@@ -36,6 +43,7 @@ exports.todoDetails = function(req, res){
 }
 
 exports.todoUpdate = function(req, res){
+    //findByIdAndUpdate untuk menemukan param.id lalu mengupdate nya, sesuai nilai yg di inputkan pada body
     Todos.findByIdAndUpdate(req.params.id, {$set: req.body}, function(err){
         if(err){
             return next(err)
@@ -45,6 +53,7 @@ exports.todoUpdate = function(req, res){
 }
 
 exports.todoDelete = function(req, res){
+    //menghapus data sesuai dengan id pada parameter
     Todos.findByIdAndDelete(req.params.id, function(err){
         if(err){
             return next(err)
